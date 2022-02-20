@@ -17,6 +17,7 @@ class ImageDataProvider with ChangeNotifier {
   double _blurRadius = 10;
   double _opacity = 0.5;
   List<Color> _colorHistory = [];
+  bool _isCapturing = false;
 
   resetSourceImage() {
     _isPicked = false;
@@ -100,6 +101,14 @@ class ImageDataProvider with ChangeNotifier {
 
   addColorHistory(List<Color> colors) {
     _colorHistory = colors;
+    notifyListeners();
+  }
+
+  getCapturing() => _isCapturing;
+
+  setCapturing(bool isCapturing) {
+    // print("isCapturing : $isCapturing");
+    _isCapturing = isCapturing;
     notifyListeners();
   }
 }

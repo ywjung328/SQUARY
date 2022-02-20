@@ -67,10 +67,13 @@ Future<Map> getImageData(XFile? image) async {
   return result;
 }
 
-captureImage(GlobalKey captureKey, String name) async {
+captureImage(Map captureInput) async {
+  var size = captureInput['size'];
+  var captureKey = captureInput['key'];
+  var name = captureInput['name'];
   RenderRepaintBoundary? renderObject =
       captureKey.currentContext!.findRenderObject() as RenderRepaintBoundary?;
-  ui.Image capturedImage = await renderObject!.toImage(pixelRatio: 1800 / 400);
+  ui.Image capturedImage = await renderObject!.toImage(pixelRatio: 1800 / size);
   ByteData? byteData =
       await capturedImage.toByteData(format: ui.ImageByteFormat.png);
   final rawData = byteData!.buffer.asUint8List();

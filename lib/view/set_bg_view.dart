@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widget/squary_image.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -14,6 +16,7 @@ class SetBackgroundView extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageDataProvider = Provider.of<ImageDataProvider>(context);
     double _size = getSquarySize(context, 500, 36);
+    SquaryImage _squaryImage = SquaryImage(size: _size);
     return Scaffold(
       // appBar: CustomAppBar(),
       appBar: AppBar(
@@ -23,7 +26,7 @@ class SetBackgroundView extends StatelessWidget {
         title: const Text(
           "SQUARY",
           style: TextStyle(
-            fontSize: 32,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
@@ -40,7 +43,7 @@ class SetBackgroundView extends StatelessWidget {
                 Container(
                   width: _size,
                   height: _size,
-                  child: SquaryImage(size: _size),
+                  child: _squaryImage,
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                     boxShadow: [
@@ -156,17 +159,30 @@ class SetBackgroundView extends StatelessWidget {
                 Hero(
                   tag: "buttonHeroTag",
                   child: BouncingButton(
-                    radius: 100,
-                    width: 72,
-                    height: 72,
-                    elevation: 30,
-                    scale: 0.98,
-                    child: const Center(
-                      child: Icon(Icons.navigate_next_rounded),
-                    ),
-                    onPressed: () =>
-                        createRoute(context, const SetBackgroundView()),
-                  ),
+                      radius: 100,
+                      width: 72,
+                      height: 72,
+                      elevation: 30,
+                      scale: 0.98,
+                      child: Center(
+                        child: imageDataProvider.getCapturing()
+                            ? const CupertinoActivityIndicator()
+                            : const Icon(Icons.download_rounded),
+                      ),
+                      // onPressed: () =>
+                      //     createRoute(context, const SetBackgroundView()),
+                      onPressed: () async {
+                        Map captureInput = {};
+                        captureInput['size'] = _size;
+                        captureInput['key'] = _squaryImage.getGlobalKey();
+                        captureInput['name'] = imageDataProvider.getName();
+
+                        imageDataProvider.setCapturing(true);
+
+                        await compute(captureImage, captureInput);
+
+                        imageDataProvider.setCapturing(false);
+                      }),
                 ),
               ],
             ),

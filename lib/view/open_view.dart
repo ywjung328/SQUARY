@@ -27,7 +27,7 @@ class OpenView extends StatelessWidget {
         title: const Text(
           "SQUARY",
           style: TextStyle(
-            fontSize: 32,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
