@@ -36,6 +36,12 @@ double getArea(BuildContext context) {
   return width > 600 ? (width > 1200 ? 1056 : width - 96) : width - 64;
 }
 
+double getSquarySize(BuildContext context, double maxSize, double padding) {
+  double width = MediaQuery.of(context).size.width;
+
+  return width - padding * 2 > maxSize ? maxSize : width - padding * 2;
+}
+
 Route createRoute(BuildContext context, Widget page) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,

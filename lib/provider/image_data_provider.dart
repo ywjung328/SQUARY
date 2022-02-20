@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 enum Position { START, CENTER, END }
 
-class ImageDataProvider extends ChangeNotifier {
-  Color _backgroundColor = Colors.white;
+class ImageDataProvider with ChangeNotifier {
+  Color _backgroundColor = Colors.black;
   Position _imgPosition = Position.CENTER;
   bool _isPicked = false;
   bool _isLoading = false;
@@ -14,8 +14,9 @@ class ImageDataProvider extends ChangeNotifier {
   bool _isVertical = false;
   // bool _backgroundAsImage = false;
   bool _backgroundAsImage = true;
-  double _blurRadius = 5;
+  double _blurRadius = 10;
   double _opacity = 0.5;
+  List<Color> _colorHistory = [];
 
   resetSourceImage() {
     _isPicked = false;
@@ -92,6 +93,13 @@ class ImageDataProvider extends ChangeNotifier {
 
   setOpacity(double opacity) {
     _opacity = opacity;
+    notifyListeners();
+  }
+
+  getColorHistory() => _colorHistory;
+
+  addColorHistory(List<Color> colors) {
+    _colorHistory = colors;
     notifyListeners();
   }
 }

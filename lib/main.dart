@@ -24,6 +24,9 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.white,
           brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
+          sliderTheme: SliderThemeData(
+            valueIndicatorTextStyle: TextStyle(color: Colors.white),
+          ),
         ),
         home: const OpenView(),
       ),
