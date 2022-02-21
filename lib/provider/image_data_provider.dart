@@ -58,7 +58,11 @@ class ImageDataProvider with ChangeNotifier {
   getName() => _name;
 
   setName(String name) {
-    _name = name;
+    List<String> parsedName = name.split('.');
+    _name = '';
+    for (int i = 0; i < parsedName.length - 1; i++) {
+      _name += parsedName[i];
+    }
     notifyListeners();
   }
 

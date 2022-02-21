@@ -68,14 +68,18 @@ class SquaryImage extends StatelessWidget {
                                             imageDataProvider.getBlurRadius(),
                                         sigmaY:
                                             imageDataProvider.getBlurRadius()),
-                                    child: Image.memory(
-                                      imageDataProvider.getByteData(),
-                                      fit: BoxFit.fill,
+                                    child: SizedBox(
+                                      width: size * 1.5,
+                                      height: size * 1.5,
+                                      child: Image.memory(
+                                        imageDataProvider.getByteData(),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   )
                                 : Image.memory(
                                     imageDataProvider.getByteData(),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   ),
                           ),
                         ),
