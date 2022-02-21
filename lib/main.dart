@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<ImageDataProvider>(
       create: (context) => ImageDataProvider(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: "N-Limbo's SQUARY",
         theme: ThemeData(
           primarySwatch: Colors.grey,
           primaryColor: Colors.white,
