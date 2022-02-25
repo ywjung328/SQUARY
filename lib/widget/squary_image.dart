@@ -16,51 +16,52 @@ class SquaryImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageDataProvider = Provider.of<ImageDataProvider>(context);
+    print(size * (1 + imageDataProvider.getBlurRadius() / 100));
+    print(
+      1 / (1 + imageDataProvider.getBlurRadius() / 100),
+    );
     return RepaintBoundary(
       key: _globalKey,
       child: Hero(
         tag: "imageHeroTag",
         child: !imageDataProvider.getisPicked()
-            ? Stack(
-                children: [
-                  Container(
-                    width: size,
-                    height: size,
-                    color: Colors.white,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: imageDataProvider.getLoading()
-                        ? const CupertinoActivityIndicator()
-                        : Text(
-                            "Tap here to open image!",
-                            style: TextStyle(fontSize: size / 20),
-                          ),
-                  ),
-                ],
-              )
-            : Container(
-                color: Colors.white,
-                width: size,
-                height: size,
+            ? Center(
                 child: Stack(
                   children: [
-                    Offstage(
+                    Container(
+                      width: size,
+                      height: size,
+                      color: Colors.white,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: imageDataProvider.getLoading()
+                          ? const CupertinoActivityIndicator()
+                          : Text(
+                              "Tap here to open image!",
+                              style: TextStyle(fontSize: size / 20),
+                            ),
+                    ),
+                  ],
+                ),
+              )
+            : Stack(
+                children: [
+                  Center(
+                    child: Offstage(
                       offstage: !imageDataProvider.getBackgroundAsImage(),
-                      child: SizedBox(
-                        width: size,
-                        height: size,
-                        // child: ImageFiltered(
-                        //   imageFilter:
-                        //       ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                        //   child: Image.memory(
-                        //     imageDataProvider.getByteData(),
-                        //     fit: BoxFit.fill,
-                        //   ),
-                        // ),
-                        child: ClipRect(
-                          child: Offstage(
-                            offstage: !imageDataProvider.getBackgroundAsImage(),
+                      child: ClipRect(
+                        child: Align(
+                          alignment: Alignment.center,
+                          widthFactor:
+                              1 / (1 + imageDataProvider.getBlurRadius() / 100),
+                          heightFactor:
+                              1 / (1 + imageDataProvider.getBlurRadius() / 100),
+                          child: SizedBox(
+                            width: size *
+                                (1 + imageDataProvider.getBlurRadius() / 100),
+                            height: size *
+                                (1 + imageDataProvider.getBlurRadius() / 100),
                             child: imageDataProvider.getBlurRadius() != 0.0
                                 ? ImageFiltered(
                                     imageFilter: ImageFilter.blur(
@@ -68,13 +69,9 @@ class SquaryImage extends StatelessWidget {
                                             imageDataProvider.getBlurRadius(),
                                         sigmaY:
                                             imageDataProvider.getBlurRadius()),
-                                    child: SizedBox(
-                                      width: size,
-                                      height: size,
-                                      child: Image.memory(
-                                        imageDataProvider.getByteData(),
-                                        fit: BoxFit.cover,
-                                      ),
+                                    child: Image.memory(
+                                      imageDataProvider.getByteData(),
+                                      fit: BoxFit.cover,
                                     ),
                                   )
                                 : Image.memory(
@@ -85,20 +82,26 @@ class SquaryImage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      color: imageDataProvider
-                          .getColor()
-                          .withOpacity(imageDataProvider.getOpacity()),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
+                  ),
+                  Container(
+                    width: size,
+                    height: size,
+                    color: imageDataProvider
+                        .getColor()
+                        .withOpacity(imageDataProvider.getOpacity()),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: size,
+                      height: size,
                       child: Image.memory(
                         imageDataProvider.getByteData(),
                         fit: BoxFit.contain,
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
       ),
     );

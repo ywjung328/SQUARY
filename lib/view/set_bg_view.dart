@@ -44,21 +44,22 @@ class SetBackgroundView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    width: _size,
-                    height: _size,
-                    child: _squaryImage,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 45,
-                          offset: const Offset(0.0, 15),
-                          color: Colors.black.withOpacity(0.3),
-                        )
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   width: _size,
+                  //   height: _size,
+                  //   child: _squaryImage,
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.transparent,
+                  //     boxShadow: [
+                  //       BoxShadow(
+                  //         blurRadius: 45,
+                  //         offset: const Offset(0.0, 15),
+                  //         color: Colors.black.withOpacity(0.3),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  _squaryImage,
                   const SizedBox(height: 32),
                   const Text("Opacity"),
                   Slider(
